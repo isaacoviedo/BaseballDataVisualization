@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+
+{% block body %}
+
+<div class="container-fluid">
+    <div class="jumbotron">
+        <h3 class="display-4 text-center" style="width:auto; margin:auto;">
+            Showing results for {{ docList[0]['name'] }}. 
+        </h3>
+    </div>
+</div>
+
+<!--div is added to make the table scrollable-->
+<div style="height: 750px;  width: auto; overflow: auto;">
+    <table class="table table-striped table-hover table-dark" style="width: auto; margin:auto;">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Year</th>
+                <th scope="col">Final Ranking</th>
+                <th scope="col">Wins</th>
+                <th scope="col">Loses</th>
+                <th scope="col">Runs Scored</th>
+                <th scope="col">Doubles</th>
+                <th scope="col">Triples</th>
+                <th scope="col">Homeruns</th>
+                <th scope="col">Stolen Bases</th>
+                <th scope="col">Home Runs Allowed</th>
+                <th scope="col">Team's ERA</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for doc in docList %}
+            {# Want to conditionally set the color of the row to green if they won the world series #}
+            <tr id="docRow" {% if (doc.get('WSWin') == 'Y') or (doc.get('WSWin') == 'y') %} class="bg-success" {%endif%}>
+                <td scope="row"> {{ doc['yearID'] }} </td>
+                <td scope="row"> {{ doc['Rank'] }} </td>
+                <td scope="row"> {{ doc['W'] }} </td>
+                <td scope="row"> {{ doc['L'] }} </td>
+                <td scope="row"> {{ doc['R'] }} </td>
+                <td scope="row"> {{ doc['2B'] }} </td>
+                <td scope="row"> {{ doc['3B'] }} </td>
+                <td scope="row"> {{ doc['HR'] }} </td>
+                <td scope="row"> {{ doc['SB'] }} </td>
+                <td scope="row"> {{ doc['HRA'] }} </td>
+                <td scope="row"> {{ doc['ERA'] }} </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<p>
+    Howdy
+</p>
+{% endblock %}

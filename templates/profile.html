@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css')}}">
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid"  style="margin-left: 200px;  position: relative;">
+    <img alt="Team Icons" width="750" height="750" src="/static/images/teamicons.jpg">
+    <div class="jumbotron" style="float: right; margin-right: 650px;">
+            <p class="lead text-center">
+                Click on a team icon to pull up statistics!
+            </p>
+    </div>
+</div>
+
+<div class="icon-form" id="form-team">
+    <form class="form-row">
+        <button type="submit" formaction="{{ url_for('profile_team', tname='royals')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='yankees')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='astros')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='cardinals')}}"  class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='mets')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='giants')}}" class="btn btn-light icon-btn"></button>
+    </form>
+    <form class="form-row">
+        <button type="submit" formaction="{{ url_for('profile_team', tname='white sox')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='blue jays')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='mariners')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='cubs')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='marlins')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='diamondbacks')}}" class="btn btn-light icon-btn"></button>
+    </form>
+    <form class="form-row">
+        <button type="submit" formaction="{{ url_for('profile_team', tname='twins')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='red sox')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='rangers')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='pirates')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='braves')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='dodgers')}}" class="btn btn-light icon-btn"></button>
+    </form>
+    <form class="form-row">
+        <button type="submit" formaction="{{ url_for('profile_team', tname='indians')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='rays')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='angels')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='brewers')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='phillies')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='padres')}}" class="btn btn-light icon-btn"></button>
+    </form>
+    <form class="form-row">
+        <button type="submit" formaction="{{ url_for('profile_team', tname='tigers')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='orioles')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='athletics')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='reds')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='nationals')}}" class="btn btn-light icon-btn"></button>
+        <button type="submit" formaction="{{ url_for('profile_team', tname='rockies')}}" class="btn btn-light icon-btn"></button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+.icon-form {
+    margin-left: 215px;
+    top: 85px;
+    position: absolute;
+}
+
+.icon-btn {
+    width: 127px;
+    height: 150px;
+    background-color: transparent !important;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    border: none;
+}
