@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask_jsglue import JSGlue
 from player import Player
 from team import Team
 from pprint import pprint
 
 app = Flask(__name__)
+jsglue = JSGlue()
+jsglue.init_app(app)
 
 # -------------- MAIN INDEX --------------
 @app.route("/")
@@ -39,14 +42,15 @@ def profile_main():
 def profile_player():
     return jsonify(request.form)
 
-@app.route("/profile/team/<string:tname>")
-def profile_team(tname):
+@app.route("/profile/team/<string:teamid>")
+def profile_team(teamid):
 
+    print(teamid)
     # get all the information pertaninig to that team
-    team = Team(tname)
+    team = Team(teamid)
 
     return render_template("team_profile.html", docList = team.docs)
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)

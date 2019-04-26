@@ -1,14 +1,158 @@
-.icon-form {
-    margin-left: 215px;
-    top: 85px;
-    position: absolute;
-}
-
 .icon-btn {
     width: 127px;
     height: 150px;
     background-color: transparent !important;
     background-repeat: no-repeat;
     overflow: hidden;
-    border: none;
+    border: black;
+}
+
+.royals-logo {
+    background: url('/static/images/royals_logo.jpg') no-repeat !important; 
+    background-size: 127px 150px !important;  
+}
+
+.yanks-logo {
+    background: url('/static/images/yankees_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.astros-logo {
+    background: url('/static/images/astros_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.cards-logo {
+    background: url('/static/images/cardinals_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.mets-logo {
+    background: url('/static/images/mets_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.giants-logo {
+    background: url('/static/images/giants_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.wsox-logo {
+    background: url('/static/images/wsox_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.bjays-logo {
+    background: url('/static/images/bjays_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.marins-logo {
+    background: url('/static/images/mariners_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.cubs-logo {
+    background: url('/static/images/cubs_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.marls-logo {
+    background: url('/static/images/marlins_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.dbacks-logo {
+    background: url('/static/images/dbacks_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.twins-logo {
+    background: url('/static/images/twins_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.rsox-logo {
+    background: url('/static/images/rsox_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.rangs-logo {
+    background: url('/static/images/rangers_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.pirates-logo {
+    background: url('/static/images/pirates_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.braves-logo {
+    background: url('/static/images/braves_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.dodgs-logo {
+    background: url('/static/images/dodgers_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.inds-logo {
+    background: url('/static/images/indians_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.rays-logo {
+    background: url('/static/images/rays_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.angs-logo {
+    background: url('/static/images/angels_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.brews-logo {
+    background: url('/static/images/brewers_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.phils-logo {
+    background: url('/static/images/brewers_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.pads-logo {
+    background: url('/static/images/padres_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.tigers-logo {
+    background: url('/static/images/tigers_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.orioles-logo {
+    background: url('/static/images/orioles_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.athls-logo {
+    background: url('/static/images/athletics_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.reds-logo {
+    background: url('/static/images/reds_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.nats-logo {
+    background: url('/static/images/nats_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
+}
+
+.rocks-logo {
+    background: url('/static/images/rocks_logo.jpg') no-repeat !important;
+    background-size: 127px 150px !important;
 }

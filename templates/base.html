@@ -4,6 +4,7 @@
         <title>Baseball Data Visualization </title>
         {% block stylesheet %}
         {% endblock %}
+        {{ JSGlue.include() }}
         <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css')}}">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -41,11 +42,9 @@
         </header>        
         {% block body %}
         {% endblock %}
-        <footer class="page-footer font-small" id="footer">
-            <div class="footer-copyright text-center py-3" id="footer">
-                <a href="https://www.linkedin.com/in/isaac-oviedo-4397b5158/"> Isaac Oviedo </a>
-            </div>
-        </footer>
+        <div class="footer">
+            <a href="https://www.linkedin.com/in/isaac-oviedo-4397b5158/"> Isaac Oviedo </a>
+        </div>
     </body>
 </html>
 

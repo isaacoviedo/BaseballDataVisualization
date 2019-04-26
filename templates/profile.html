@@ -5,56 +5,66 @@
 {% endblock %}
 
 {% block body %}
-<div class="container-fluid"  style="margin-left: 200px;  position: relative;">
-    <img alt="Team Icons" width="750" height="750" src="/static/images/teamicons.jpg">
-    <div class="jumbotron" style="float: right; margin-right: 650px;">
-            <p class="lead text-center">
-                Click on a team icon to pull up statistics!
-            </p>
+
+<div class="container">
+    <div class="row">
+        <div style="margin:auto;">
+            <button type="button" value="KCA" class="btn btn-light icon-btn royals-logo"></button>
+            <button type="button" value="NYA" class="btn btn-light icon-btn yanks-logo"></button>
+            <button type="button" value="HOU" class="btn btn-light icon-btn astros-logo"></button>
+            <button type="button" value="SLN" class="btn btn-light icon-btn cards-logo"></button>
+            <button type="button" value="NYN" class="btn btn-light icon-btn mets-logo"></button>
+            <button type="button" value="NYP-NY1-SFN" class="btn btn-light icon-btn giants-logo"></button>
+        </div>
+    </div>
+    <div class="row">
+        <div style="margin:auto;">
+            <button type="button" value="CHA" class="btn btn-light icon-btn wsox-logo"></button>
+            <button type="button" value="TOR-PHI" class="btn btn-light icon-btn bjays-logo"></button>
+            <button type="button" value="SEA" class="btn btn-light icon-btn marins-logo"></button>
+            <button type="button" value="CHN" class="btn btn-light icon-btn cubs-logo"></button>
+            <button type="button" value="MIA-FLO" class="btn btn-light icon-btn marls-logo"></button>
+            <button type="button" value="ARI" class="btn btn-light icon-btn dbacks-logo"></button>        
+        </div>
+    </div>
+    <div class="row">
+        <div style="margin:auto;">
+            <button type="button" value="MIN" class="btn btn-light icon-btn twins-logo"></button>
+            <button type="button" value="BOS" class="btn btn-light icon-btn rsox-logo"></button>
+            <button type="button" value="TEX" class="btn btn-light icon-btn rangs-logo"></button>
+            <button type="button" value="PIT-CHP" class="btn btn-light icon-btn pirates-logo"></button>
+            <button type="button" value="ATL-ML1-BSN" class="btn btn-light icon-btn braves-logo"></button>
+            <button type="button" value="LAN-BRO" class="btn btn-light icon-btn dodgs-logo"></button>        
+        </div>
+    </div>
+    <div class="row">
+        <div style="margin:auto;">
+            <button type="button" value="CLE" class="btn btn-light icon-btn inds-logo"></button>
+            <button type="button" value="TBA" class="btn btn-light icon-btn rays-logo"></button>
+            <button type="button" value="LAA-ANA-CAL" class="btn btn-light icon-btn angs-logo"></button>
+            <button type="button" value="MIL-ML4-MLA-ML3-MLU" class="btn btn-light icon-btn brews-logo"></button>
+            <button type="button" value="PHI" class="btn btn-light icon-btn phils-logo"></button>
+            <button type="button" value="SDN" class="btn btn-light icon-btn pads-logo"></button>        
+        </div>
+    </div>
+    <div class="row">
+        <div style="margin:auto;">
+            <button type="button" value="DET" class="btn btn-light icon-btn tigers-logo"></button>
+            <button type="button" value="BAL-BLN-BL3-BL2-BLA" class="btn btn-light icon-btn orioles-logo"></button>
+            <button type="button" value="KC1-OAK-PH4-PHP-PHA-PHN-PH1" class="btn btn-light icon-btn athls-logo"></button>
+            <button type="button" value="BS2-BSP-CNU-BSU-CIN-CN1" class="btn btn-light icon-btn reds-logo"></button>
+            <button type="button" value="WS8-WS4-WSU-WS6-WS7-WAS-MON" class="btn btn-light icon-btn nats-logo"></button>
+            <button type="button" value="COL" class="btn btn-light icon-btn rocks-logo"></button>        
+        </div>
     </div>
 </div>
 
-<div class="icon-form" id="form-team">
-    <form class="form-row">
-        <button type="submit" formaction="{{ url_for('profile_team', tname='royals')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='yankees')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='astros')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='cardinals')}}"  class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='mets')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='giants')}}" class="btn btn-light icon-btn"></button>
-    </form>
-    <form class="form-row">
-        <button type="submit" formaction="{{ url_for('profile_team', tname='white sox')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='blue jays')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='mariners')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='cubs')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='marlins')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='diamondbacks')}}" class="btn btn-light icon-btn"></button>
-    </form>
-    <form class="form-row">
-        <button type="submit" formaction="{{ url_for('profile_team', tname='twins')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='red sox')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='rangers')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='pirates')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='braves')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='dodgers')}}" class="btn btn-light icon-btn"></button>
-    </form>
-    <form class="form-row">
-        <button type="submit" formaction="{{ url_for('profile_team', tname='indians')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='rays')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='angels')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='brewers')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='phillies')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='padres')}}" class="btn btn-light icon-btn"></button>
-    </form>
-    <form class="form-row">
-        <button type="submit" formaction="{{ url_for('profile_team', tname='tigers')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='orioles')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='athletics')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='reds')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='nationals')}}" class="btn btn-light icon-btn"></button>
-        <button type="submit" formaction="{{ url_for('profile_team', tname='rockies')}}" class="btn btn-light icon-btn"></button>
-    </form>
-</div>
+<script>
+    // Listen for any button clicks and redirect to appropriate url
+    document.addEventListener('click', function(event) {
+        console.log( Flask.url_for("profile_team", {"teamid": event.target.value}) );
+        window.location.href = Flask.url_for("profile_team", {"teamid": event.target.value});
+    });
+</script>
 
 {% endblock %}

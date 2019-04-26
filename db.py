@@ -6,9 +6,14 @@ import sys
 # connects to the baseball db
 def connect():
 
-    url = os.environ.get("MONGO_SERVER")
-    client = pymongo.MongoClient(url)
-
+    if "local" in sys.argv:
+        print("Connecting to localhost db")
+        client = pymongo.MongoClient()
+    else:
+        print("Connecting to cloud")
+        url = os.environ.get("MONGO_SERVER")
+        client = pymongo.MongoClient(url)
+    
     return client['baseballdb']
 
 # creates all collections in the database
