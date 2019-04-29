@@ -1,3 +1,4 @@
+import json
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_jsglue import JSGlue
 from player import Player
@@ -44,12 +45,32 @@ def profile_player():
 
 @app.route("/profile/team/<string:teamid>")
 def profile_team(teamid):
-
-    print(teamid)
+    '''
+        param:
+            - teamid : the id of the team as noted in the mongodb
+    '''
     # get all the information pertaninig to that team
     team = Team(teamid)
+    rangeObj = team.gen_minmax(['yearID','Rank','W','L','2B','3B','HR','SB','ERA','HRA'])
 
-    return render_template("team_profile.html", docList = team.docs)
+    return render_template("team_profile.html", docList = team.docs, rangeD = rangeObj)
+
+@app.route("/build_pplot", methods=['POST'])
+def build_pplot():
+
+    print("Im here")
+
+    if request.method == 'GET':
+
+        vals = request.json['data']
+        print(vals)
+
+    else:
+        vals = request.args
+        print(vals)
+        print("Nothing")
+
+    return ''
 
 
 if __name__ == "__main__":
