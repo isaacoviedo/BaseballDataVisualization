@@ -1,0 +1,10 @@
+
+.fixedHead {
+    overflow-y: auto;
+    height: 450px;
+}
+
+.fixedHead th {
+    position: sticky;
+    top: 0;
+}

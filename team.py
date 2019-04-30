@@ -32,9 +32,18 @@ class Team:
         # want to create the group stage for a custom number of fields
         group_stage = { '_id': '' }
 
+        project_stage = {   '_id': 0,
+                            'SB': { '$cond': [ { '$eq': ["$SB", ""] }, 0, "$SB" ] },
+                        }
+
         for elem in fieldList:
             fldName = '${}'.format(elem)
             
+            if elem == 'SB':
+                pass
+            else:
+                project_stage[elem] = 1
+
             # ---- min of the field
             minKey = 'min_{}'.format(elem)
             minVal = { '$min' : fldName }
@@ -50,6 +59,8 @@ class Team:
                 '$match': {
                     '$or': self.tidOrList
                 }
+            }, {
+                '$project': project_stage
             }, {
                 '$group': group_stage
         }]

@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
 
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile_team.css')}}">
+{% endblock %}
+
 {% block body %}
 
 <div class="container-fluid">
@@ -11,9 +15,25 @@
     </div>
 </div>
 
+<div class="container-fluid" style="margin:auto; width:100%; height: 50%;">
+        <div id="ParaPlot"></div>
+</div>
+    
+<form id="yearFilter">
+    <div class="form-group">
+        <label for="yearControlSelect">Interested in comparing? Choose one or multiple years to display:</label>
+        <select multiple class="form-control" id="yearControlSelect" style="overflow:auto !important;">
+            {% for doc in docList %}
+                <option value="{{ doc['yearID'] }}"> {{ doc['yearID'] }} </option>
+            {% endfor %}
+        </select>
+        <button class="btn btn-primary" type="submit"> Submit </button>
+    </div>
+</form>
+
 <!--div is added to make the table scrollable-->
-<div style="height: 750px;  width: auto; overflow: auto;">
-    <table class="table table-striped table-hover table-dark" style="width: auto; margin:auto;">
+<div class="fixedHead">
+    <table class="table table-striped table-hover table-dark" style="margin:auto;">
         <thead class="thead-dark">
             <tr>
                 <th scope="col">Year</th>
@@ -32,7 +52,7 @@
         <tbody>
         {% for doc in docList %}
             {# Want to conditionally set the color of the row to green if they won the world series #}
-            <tr id="docRow" {% if (doc.get('WSWin') == 'Y') or (doc.get('WSWin') == 'y') %} class="bg-success" {%endif%}>
+            <tr id="docRow" {% if (doc.get('WSWin') == 'Y') or (doc.get('WSWin') == 'y') %} class="bg-success" {% elif (doc.get('LgWin') == 'y') or (doc.get('LgWin') == 'Y')  %} class="bg-warning" {%endif%}>
                 <td scope="row"> {{ doc['yearID'] }} </td>
                 <td scope="row"> {{ doc['Rank'] }} </td>
                 <td scope="row"> {{ doc['W'] }} </td>
@@ -50,26 +70,77 @@
     </table>
 </div>
 
-<div class="container-fluid" style="margin:auto; width:100%; height: 50%;">
-    <div id="ParaPlot"></div>
-    
-    <form id="yearFilter">
-        <div class="form-group">
-            <label for="yearControlSelect">Choose one year to display:</label>
-            <select multiple class="form-control" id="yearControlSelect" style="overflow:auto !important;">
-                {% for doc in docList %}
-                <option value="{{ doc['yearID'] }}"> {{ doc['yearID'] }} </option>
-                {% endfor %}
-            </select>
-            <button class="btn btn-primary" type="submit"> Submit </button>
-        </div>
-    </form>
-</div>
-
 <script>
 
     document.getElementById("yearFilter").addEventListener("submit", function(event) {
+        event.preventDefault();
         var selected = $('#yearControlSelect').val();
+        
+        var dList = {{ docList|safe }};
+        var rangeDict = {{ rangeD|safe }};
+
+        function unpack(rows, key) {
+            return rows.map(function(row) {
+                if (selected.includes( String(row['yearID'] )) ) {
+                     return row[key]; 
+                }
+            });
+        }
+
+        function gen_dimensions(dataList, rDict) {
+            var dimList = [];
+            var i;
+            var j;
+            var labelList = ['yearID','Rank','W','L','2B','3B','HR','SB','ERA','HRA'];
+
+            for (j = 0; j < labelList.length; j++) {
+                
+                if (labelList[j] == 'yearID' && (selected.length > 1)) {
+                    var rangeList = [ Math.min.apply(Math, selected ), Math.max.apply( Math, selected )  ];
+
+                    dimList.push({
+                        range: rangeList,
+                        label: labelList[j],
+                        values: unpack(dataList, labelList[j])
+                    });
+
+                }
+                else {
+                    
+                    dimList.push({
+                        range: [ rDict['min_' + labelList[j]] , rDict['max_'+labelList[j]] ],
+                        label: labelList[j],
+                        values: unpack(dataList, labelList[j])
+                    });
+
+                }
+
+
+                
+
+            }
+
+            return dimList;
+        }
+
+        var data = [{
+            type: 'parcoords',
+            pad: [80,80,80,80],
+            line: {
+                color: unpack(dList, 'yearID'),
+                colorscale: 'Bluered',
+                cmin: rangeDict['min_yearID'],
+                cmax: rangeDict['max_yearID']
+            },
+            dimensions: gen_dimensions(dList, rangeDict)
+        }];
+
+        var layout = {
+            title: 'Year-to-Year Comparison'
+        };
+
+        Plotly.newPlot('ParaPlot',data, layout);
+
     });
 
     $(document).ready(function(){
@@ -88,7 +159,7 @@
             var i;
             var j;
             var labelList = ['Rank','W','L','2B','3B','HR','SB','ERA','HRA'];
-
+            console.log(rDict);
             for (j = 0; j < labelList.length; j++) {
             
                 dimList.push({
@@ -115,7 +186,7 @@
         }];
 
         var layout = {
-            title: 'Astros Year-to-Year Comparison'
+            title: 'Year-to-Year Comparison'
         };
 
         Plotly.plot('ParaPlot',data, layout);
