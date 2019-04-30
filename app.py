@@ -9,6 +9,9 @@ app = Flask(__name__)
 jsglue = JSGlue()
 jsglue.init_app(app)
 
+# When trying to get all the teams in the database
+# {teamID: {$regex: "^((?!KCA|NYA|HOU|SLN|NYN|NYP|NY1|SFN|CHA|TOR|PHI|SEA|CHN|MIA|FLO|ARI|MIN|BOS|TEX|PIT|CHP|ATL|ML1|BSN|LAN|BRO|CLE|TBA|LAA|ANA|CAL|MIL|ML4|MLA|ML3|MLU|PHI|SDN|DET|BAL|BLN|BL3|BL2|BLA|KC1|OAK|PH4|PHP|PHA|PHN|PH1|BS2|BSP|CNU|BSU|CIN|CN1|WS8|WS4|WSU|WS6|WS7|WAS|MON|COL|FW1|CL1).)*$"}}
+
 # -------------- MAIN INDEX --------------
 @app.route("/")
 def index():
