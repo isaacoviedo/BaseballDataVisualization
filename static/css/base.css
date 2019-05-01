@@ -14,7 +14,7 @@
     flex-direction: column;
     padding: 20px;
     background-color: #f8f9fa !important;
-    color: rgb(80, 0, 0);
+    color: rgb(80, 0, 0) !important;
 }
 
 .carousel > .carousel-inner {
