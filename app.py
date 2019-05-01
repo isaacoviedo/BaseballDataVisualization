@@ -21,17 +21,19 @@ def index():
 def search_bar():
     
     # want to make sure we handle no input
-    if request.form['pname']:
-        player = Player(request.form['pname'])
-        player.get_appearances()
-        return redirect( url_for('about') )
-    else:
-        return redirect( url_for('index') )
+    # if request.form['pname']:
+    #     player = Player(request.form['pname'])
+    #     player.get_appearances()
+    #     return redirect( url_for('about') )
+    # else:
+    #     return redirect( url_for('index') )
+    
+    return render_template("under_construction.html")
 
 
 @app.route("/about")
 def about():
-    return render_template("about.html")
+    return render_template("under_construction.html")
 
 @app.route("/dashboard")
 def dashboard():
@@ -57,24 +59,6 @@ def profile_team(teamid):
     rangeObj = team.gen_minmax(['yearID','Rank','W','L','2B','3B','HR','SB','ERA','HRA'])
 
     return render_template("team_profile.html", docList = team.docs, rangeD = rangeObj)
-
-@app.route("/build_pplot", methods=['POST'])
-def build_pplot():
-
-    print("Im here")
-
-    if request.method == 'GET':
-
-        vals = request.json['data']
-        print(vals)
-
-    else:
-        vals = request.args
-        print(vals)
-        print("Nothing")
-
-    return ''
-
 
 if __name__ == "__main__":
     app.run(debug=True)
