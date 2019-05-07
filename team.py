@@ -4,22 +4,59 @@ from pprint import pprint
 
 class Team:
 
-    def __init__(self, tid):
-
-        self.tidOrList = [ {"teamID":i} for i in tid.split("-") ]
+    def __init__(self, franchid):
 
         self.conn = db.connect()
+        self.franchid = franchid
         self.docs = list(self.conn.teams.find(
-                { '$or': self.tidOrList }, 
-                {   '_id': False    } 
+                { 'franchID': self.franchid }, 
+                {   '_id': False    }
             ).sort(   'yearID',   pymongo.DESCENDING  ) )
         self.name = self.docs[0]['name']
 
     def __repr__(self):
         return "<Team: {}>".format(self.name)
 
+    def get_all_names(self):
+        '''
+            purpose:
+                - used to find all the names the team has had throughout the years
+            param:
+                - none
+            returns:
+                - list of documents with the following format
+                    - "_id" : name of the team
+                    - "year_end" : when the team stopped going by the name ("_id")
+                    - "year_start" : when the team started going by the name
+        '''
 
-    def gen_minmax(self, fieldList):
+        match_stage = {
+            'franchID': self.franchid
+        }
+
+        group_stage = {
+            '_id' : '$name',
+            'year_start' : { '$min':'$yearID' },
+            'year_end': { '$max':'$yearID' }
+        }
+
+        sort_stage = {
+            'year_end' : -1
+        }
+
+        pipeline = [
+            {
+                '$match': match_stage
+            }, {
+                '$group': group_stage
+            }, {
+                '$sort': sort_stage
+            }
+        ]
+
+        return list(self.conn.teams.aggregate(pipeline))
+
+    def gen_minmax(self, fieldList = ['yearID','Rank','W','L','2B','3B','HR','SB','ERA','HRA']):
         '''
             purpose: 
                 - used for finding the min/max of each label in the parallel coordinate plot
@@ -57,7 +94,7 @@ class Team:
         pipeline = [
             {
                 '$match': {
-                    '$or': self.tidOrList
+                    'franchID': self.franchid
                 }
             }, {
                 '$project': project_stage

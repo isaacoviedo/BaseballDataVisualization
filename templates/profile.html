@@ -7,72 +7,22 @@
 {% block body %}
 
 <div class="container">
+    {% for list in teamsList %}
     <div class="row">
         <div style="margin:auto;">
-            <button type="button" value="KCA" class="btn btn-light icon-btn royals-logo"></button>
-            <button type="button" value="NYA" class="btn btn-light icon-btn yanks-logo"></button>
-            <button type="button" value="HOU" class="btn btn-light icon-btn astros-logo"></button>
-            <button type="button" value="SLN" class="btn btn-light icon-btn cards-logo"></button>
-            <button type="button" value="NYN" class="btn btn-light icon-btn mets-logo"></button>
-            <button type="button" value="NYP-NY1-SFN" class="btn btn-light icon-btn giants-logo"></button>
+        {% for doc in list %}
+                <button type="button" value="{{ doc['franchID'] }}" class="btn btn-light icon-btn {{doc['franchID']|safe}}-logo"></button>     
+        {% endfor %}
         </div>
     </div>
-    <div class="row">
-        <div style="margin:auto;">
-            <button type="button" value="CHA" class="btn btn-light icon-btn wsox-logo"></button>
-            <button type="button" value="TOR-PHI" class="btn btn-light icon-btn bjays-logo"></button>
-            <button type="button" value="SEA" class="btn btn-light icon-btn marins-logo"></button>
-            <button type="button" value="CHN" class="btn btn-light icon-btn cubs-logo"></button>
-            <button type="button" value="MIA-FLO" class="btn btn-light icon-btn marls-logo"></button>
-            <button type="button" value="ARI" class="btn btn-light icon-btn dbacks-logo"></button>        
-        </div>
-    </div>
-    <div class="row">
-        <div style="margin:auto;">
-            <button type="button" value="MIN" class="btn btn-light icon-btn twins-logo"></button>
-            <button type="button" value="BOS" class="btn btn-light icon-btn rsox-logo"></button>
-            <button type="button" value="TEX" class="btn btn-light icon-btn rangs-logo"></button>
-            <button type="button" value="PIT-CHP" class="btn btn-light icon-btn pirates-logo"></button>
-            <button type="button" value="ATL-ML1-BSN-BS1" class="btn btn-light icon-btn braves-logo"></button>
-            <button type="button" value="LAN-BRO" class="btn btn-light icon-btn dodgs-logo"></button>        
-        </div>
-    </div>
-    <div class="row">
-        <div style="margin:auto;">
-            <button type="button" value="CLE" class="btn btn-light icon-btn inds-logo"></button>
-            <button type="button" value="TBA" class="btn btn-light icon-btn rays-logo"></button>
-            <button type="button" value="LAA-ANA-CAL" class="btn btn-light icon-btn angs-logo"></button>
-            <button type="button" value="MIL-ML4-MLA-ML3-MLU" class="btn btn-light icon-btn brews-logo"></button>
-            <button type="button" value="PHI" class="btn btn-light icon-btn phils-logo"></button>
-            <button type="button" value="SDN" class="btn btn-light icon-btn pads-logo"></button>        
-        </div>
-    </div>
-    <div class="row">
-        <div style="margin:auto;">
-            <button type="button" value="DET" class="btn btn-light icon-btn tigers-logo"></button>
-            <button type="button" value="BAL-BLN-BL3-BL2-BLA" class="btn btn-light icon-btn orioles-logo"></button>
-            <button type="button" value="KC1-OAK-PH4-PHP-PHA-PHN-PH1" class="btn btn-light icon-btn athls-logo"></button>
-            <button type="button" value="BS2-BSP-CNU-BSU-CIN-CN1" class="btn btn-light icon-btn reds-logo"></button>
-            <button type="button" value="WS8-WS4-WSU-WS6-WS7-WAS-MON" class="btn btn-light icon-btn nats-logo"></button>
-            <button type="button" value="COL" class="btn btn-light icon-btn rocks-logo"></button>        
-        </div>
-    </div>
-    <div class="row">
-        <div style="margin:auto;">
-            <button type="button" value="FW1" class="btn btn-light icon-btn" style="word-break: break-all; white-space: normal; background: gray !important;">Fort Wayne Kekiongas</button>
-            <button type="button" value="CL1" class="btn btn-light icon-btn" style="word-break: break-all; white-space: normal; background: gray !important;">Cleveland Forest Citys</button>
-            <button type="button" value="NY2" class="btn btn-light icon-btn" style="word-break: break-all; white-space: normal; background: gray !important;">New York Mutuals</button>
-            <button type="button" value="RC1" class="btn btn-light icon-btn" style="word-break: break-all; white-space: normal; background: gray !important;">Rockford Forest Citys</button>
-            <button type="button" value="TRO" class="btn btn-light icon-btn" style="word-break: break-all; white-space: normal; background: gray !important;">Troy Haymakers</button>
-        </div>
-    </div>
+    {% endfor %}
 </div>
 
 <script>
     // Listen for any button clicks and redirect to appropriate url
     document.addEventListener('click', function(event) {
-        console.log( Flask.url_for("profile_team", {"teamid": event.target.value}) );
-        window.location.href = Flask.url_for("profile_team", {"teamid": event.target.value});
+        // console.log( Flask.url_for("profile_team", {"teamid": event.target.value}) );
+        window.location.href = Flask.url_for("profile_team", {"franchid": event.target.value});
     });
 </script>
 

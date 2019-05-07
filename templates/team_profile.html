@@ -12,6 +12,12 @@
         <h3 class="display-5 text-center font-weight-normal" style="width:auto; margin:auto;">
             Showing results for <span class="font-weight-bold">{{ docList[0]['name'] }}</span>. 
         </h3>
+        <p class="text-center">
+            Many teams have different names throughout the years. Here are all the names your team has had: </br></br>
+            {% for name in namesList %}
+                <span class="font-weight-bold">{{ name['_id'] }}</span> : <span class="font-weight-italics">{{ name['year_start'] }} - {{ name['year_end'] }}</span> </br>
+            {% endfor %}
+        </p>
     </div>
 </div>
 
