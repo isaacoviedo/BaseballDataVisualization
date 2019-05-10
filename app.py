@@ -1,17 +1,16 @@
 import json
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, flash, session
 from flask_jsglue import JSGlue
 from player import Player
 from team import Team
 from pprint import pprint
 from utils import *
+from db import connect
 
 app = Flask(__name__)
 jsglue = JSGlue()
 jsglue.init_app(app)
 
-# When trying to get all the teams in the database
-# {teamID: {$regex: "^((?!KCA|NYA|HOU|SLN|NYN|NYP|NY1|SFN|CHA|TOR|PHI|SEA|CHN|MIA|FLO|ARI|MIN|BOS|TEX|PIT|CHP|ATL|ML1|BSN|LAN|BRO|CLE|TBA|LAA|ANA|CAL|MIL|ML4|MLA|ML3|MLU|PHI|SDN|DET|BAL|BLN|BL3|BL2|BLA|KC1|OAK|PH4|PHP|PHA|PHN|PH1|BS2|BSP|CNU|BSU|CIN|CN1|WS8|WS4|WSU|WS6|WS7|WAS|MON|COL|FW1|CL1|NY2|BS1|RC1|TRO).)*$"}}
 # -------------- MAIN INDEX --------------
 @app.route("/")
 def index():
@@ -20,15 +19,24 @@ def index():
 @app.route("/search_bar", methods=["POST"])
 def search_bar():
     
-    # want to make sure we handle no input
-    # if request.form['pname']:
-    #     player = Player(request.form['pname'])
-    #     player.get_appearances()
-    #     return redirect( url_for('about') )
-    # else:
-    #     return redirect( url_for('index') )
-    
-    return render_template("under_construction.html")
+    # Want to make sure we handle no input
+    if request.form['pname']:
+
+        name = request.form['pname']
+        resList = get_search_results(name)
+        resListSz = len(resList)
+
+        if resListSz == 1:
+            return redirect( url_for('profile_player', playerID = resList[0]['playerID'] ) )
+        elif resListSz > 1:
+            return render_template( "search_results.html", searchResList = resList, searchedFor = name, teamObj = Team() )
+        else:
+            flash('No player found with name: {}'.format(name))
+            return redirect( url_for('index') )
+        
+    else:
+        flash('No input given. Please try again!')
+        return redirect( url_for('index') )
 
 
 @app.route("/about")
@@ -47,10 +55,14 @@ def profile_main():
     tList = [ tList[ x : x+SUBLISTNUM ] for x in range(0 ,len(tList), SUBLISTNUM) ]
     return render_template("profile.html", teamsList = tList)
 
+@app.route("/profile/player/<string:playerID>")
+def profile_player(playerID):
 
-@app.route("/profile/player")
-def profile_player():
-    return jsonify(request.form)
+    player = Player(playerID)
+    salaryList, yearsList = player.get_salaries()
+    teamsList = player.get_teams()
+
+    return render_template("player_profile.html", player = player, salaryList = salaryList, yearsList = yearsList, teamsList = teamsList)
 
 @app.route("/profile/team/<string:franchid>")
 def profile_team(franchid):
@@ -65,5 +77,11 @@ def profile_team(franchid):
 
     return render_template("team_profile.html", docList = team.docs, rangeD = rangeObj, namesList = nmList)
 
+
+@app.route("/search/results")
+def search_results():
+    return 'Hi'
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.secret_key = 'super secret'
+    app.run(debug=False)

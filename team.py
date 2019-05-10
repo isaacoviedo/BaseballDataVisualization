@@ -4,15 +4,17 @@ from pprint import pprint
 
 class Team:
 
-    def __init__(self, franchid):
+    def __init__(self, franchid = ""):
 
         self.conn = db.connect()
-        self.franchid = franchid
-        self.docs = list(self.conn.teams.find(
-                { 'franchID': self.franchid }, 
-                {   '_id': False    }
-            ).sort(   'yearID',   pymongo.DESCENDING  ) )
-        self.name = self.docs[0]['name']
+
+        if franchid:
+            self.franchid = franchid
+            self.docs = list(self.conn.teams.find(
+                    { 'franchID': self.franchid }, 
+                    {   '_id': False    }
+                ).sort(   'yearID',   pymongo.DESCENDING  ) )
+            self.name = self.docs[0]['name']
 
     def __repr__(self):
         return "<Team: {}>".format(self.name)
@@ -55,6 +57,12 @@ class Team:
         ]
 
         return list(self.conn.teams.aggregate(pipeline))
+
+    def find_by_teamID(self, teamID):
+
+        res = self.conn.find_one({'teamID' : teamID})
+
+        return res.next() if len(list(res)) != 0 else {}
 
     def gen_minmax(self, fieldList = ['yearID','Rank','W','L','2B','3B','HR','SB','ERA','HRA']):
         '''
