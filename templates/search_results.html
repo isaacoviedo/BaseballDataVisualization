@@ -1,25 +1,36 @@
 {% extends "base.html" %}
 
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/search_results.css')}}">
+{% endblock %}
+
 {% block body %}
 
 <div class="container-fluid">
     <div class="jumbotron">
         <h3 class="display-5 text-center font-weight-normal" style="width:auto; margin:auto;">
-            Showing search results for <span class="font-weight-bold"> {{ searchedFor }} </span>.
+            Showing search results for <span class="font-weight-bold"> {{ searchedFor }}</span>.
         </h3>
     </div>
 </div>
 
-<div class="list-group">
-{% for player in searchResList %}
-    <a href=" {{ url_for( 'profile_player', playerID = player.get('playerID') ) }} " class="list-group-item list-group-item-action">
-        <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1"> {{ player.get('nameFirst') }} {{ player.get('nameLast') }} </h5>
-            <small> Active dates: {{ player.get('debut') }} through {{ player.get('finalGame') }} </small>
-        </div>
-        <p class="mb-1"> HI </p>
-        <small>Donec id elit non mi porta.</small>
-    </a>
-{% endfor %}
+<div class="sm-block-75">
+    <div class="list-group">
+    {% for player in searchResList %}
+        <a href=" {{ url_for( 'profile_player', playerID = player.get('playerID') ) }} " class="list-group-item list-group-item-action" style="border: 2px solid rgb(80,0,0) !important;">
+            {% set age = 2019 - player.get('birthYear')|int %}
+            {% if age > 100 %}
+                {% set age = "Deceased" %}    
+            {% endif %}
+            <h5 class="mb-1"> {{ player.get('nameFirst') }} {{ player.get('nameLast') }} - {{ age }}</h5>
+            <div class="d-flex justify-content-between">
+                <p class="mb-1"> Country: {{ player.get('birthCountry') }} </p>
+                <p class="mb-1"> Active dates: {{ player.get('debut') }} through {{ player.get('finalGame') }} </p>
+            </div>
+            </br>
+        </a>
+    {% endfor %}
+    </div>
 </div>
 {% endblock %}

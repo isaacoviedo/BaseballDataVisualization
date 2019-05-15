@@ -45,6 +45,56 @@ class Player:
 
         return franch_results
 
+    def get_team_name(self):
+        '''
+            :returns: the name of the team the player last played for.
+        '''
+
+        match_stage = {
+            'playerID': self.playerID
+        }
+
+        group_stage = {
+            '_id': '$teamID', 
+            'yearLastPlayed': {
+                '$max': '$yearID'
+            }
+        }
+
+        sort_stage = {
+            'yearLastPlayed': -1
+        }
+
+        limit_stage = 1
+
+        pipeline = [
+            {
+                '$match': match_stage
+            }, {
+                '$group': group_stage
+            }, {
+                '$sort': sort_stage
+            }, {
+                '$limit': limit_stage
+            }
+        ]
+
+        result = self.conn.appearances.aggregate(pipeline).next()
+        # Of the form: { '_id' : teamID, 'yearLastPlayed': yearID }
+
+        query = {
+            'teamID': result['_id']
+        }
+
+        projection = {
+            '_id':0,
+            'name':1
+        }
+
+        result = self.conn.teams.find(query,projection).sort('yearID',pymongo.DESCENDING).next()
+        
+        return result['name']
+
     def get_salaries(self):
         '''
             :returns: two lists one for the years and another for the salaries
