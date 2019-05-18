@@ -1,6 +1,8 @@
 import db
 import pymongo
+import requests
 from pprint import pprint
+from bs4 import BeautifulSoup
 
 class Player:
 
@@ -13,6 +15,43 @@ class Player:
     def __repr__(self):
         return "<Player: {} {}>".format(self.fName,self.lName)
     
+    def get_picture(self):
+        '''
+            :returns: url for the img src tag containing the image of the player
+        '''
+        query = {
+            'playerID': self.playerID
+        }
+
+        projection = {
+            '_id':0,
+            'bbrefID':1,
+            'headshot_url':1
+        }
+
+        res = self.conn.people.find(query,projection).next()
+
+        # Don't want to DDoS the bbref website so avoid sending requests if possible
+        if res.get('headshot_url'):
+            return res.get('headshot_url')
+
+
+        bbrefID = res['bbrefID']
+        url = 'https://www.baseball-reference.com/players/{}/{}.shtml'.format(bbrefID[0],bbrefID)
+        page = requests.get(url)
+        bs = BeautifulSoup(page.text ,'html.parser')
+        img = bs.find('div',attrs={'class':'media-item'}).find('img')
+
+        update_query = {
+            '$set' : {
+                'headshot_url' : img['src']
+            }
+        }
+
+        self.conn.people.update(query,update_query)
+
+        return img['src']
+
     def get_appearances(self):
 
         # Appearances are by year
@@ -92,7 +131,7 @@ class Player:
         }
 
         result = self.conn.teams.find(query,projection).sort('yearID',pymongo.DESCENDING).next()
-        
+
         return result['name']
 
     def get_salaries(self):

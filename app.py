@@ -1,4 +1,5 @@
 import json
+import sys
 from flask import Flask, render_template, request, redirect, url_for, jsonify, flash, session
 from flask_jsglue import JSGlue
 from player import Player
@@ -61,8 +62,9 @@ def profile_player(playerID):
     player = Player(playerID)
     salaryList, yearsList = player.get_salaries()
     teamsList = player.get_teams()
+    src = player.get_picture()
 
-    return render_template("player_profile.html", player = player, salaryList = salaryList, yearsList = yearsList, teamsList = teamsList)
+    return render_template("player_profile.html", player = player, salaryList = salaryList, yearsList = yearsList, teamsList = teamsList, hs_src=src)
 
 @app.route("/profile/team/<string:franchid>")
 def profile_team(franchid):
@@ -84,4 +86,8 @@ def search_results():
 
 if __name__ == "__main__":
     app.secret_key = 'super secret'
-    app.run(debug=False)
+
+    if 'local' in sys.argv:
+        app.run(debug=True)
+    else:
+        app.run(debug=False)

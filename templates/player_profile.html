@@ -7,9 +7,12 @@
 {% block body %}        
 <div class="container-fluid">
     <div class="jumbotron">
-        <h3 class="display-5 text-center font-weight-normal" style="width:auto; margin:auto;">
-            Showing results for <span class="font-weight-bold">{{ player.profile.get('nameFirst') }} {{ player.profile.get('nameLast') }}</span>.
-        </h3>
+        <div class="justify-content-center">
+            <img src="{{hs_src}}" width=92 height=137 style="margin:auto; display: block;">
+            <h3 class="display-5 text-center font-weight-normal">
+                <span class="font-weight-bold">{{ player.profile.get('nameFirst') }} {{ player.profile.get('nameLast') }}</span>
+            </h3>
+        </div>
     </div>
 </div>
 
