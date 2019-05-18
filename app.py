@@ -28,7 +28,7 @@ def search_bar():
         resListSz = len(resList)
 
         if resListSz == 1:
-            return redirect( url_for('profile_player', playerID = resList[0]['playerID'] ) )
+            return redirect( url_for('profile_player', playerID = resList[0].profile.get('playerID') ) )
         elif resListSz > 1:
             return render_template( "search_results.html", searchResList = resList, searchedFor = name, teamObj = Team() )
         else:

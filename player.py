@@ -3,6 +3,7 @@ import pymongo
 import requests
 from pprint import pprint
 from bs4 import BeautifulSoup
+from flask import url_for
 
 class Player:
 
@@ -37,14 +38,34 @@ class Player:
 
 
         bbrefID = res['bbrefID']
-        url = 'https://www.baseball-reference.com/players/{}/{}.shtml'.format(bbrefID[0],bbrefID)
-        page = requests.get(url)
-        bs = BeautifulSoup(page.text ,'html.parser')
-        img = bs.find('div',attrs={'class':'media-item'}).find('img')
+        
+        url_player = 'https://www.baseball-reference.com/players/{}/{}.shtml'.format(bbrefID[0],bbrefID)
+        url_mgr = 'https://www.baseball-reference.com/managers/{}.shtml'.format(bbrefID)
+        url_none = '/static/images/no_headshot.jpg'
+        urlList = [ url_player, url_mgr, url_none ]
+
+        img = None
+
+        for url in urlList:
+
+            if url == url_none:
+                return url_none
+                
+            page = requests.get(url)
+            bs = BeautifulSoup(page.text ,'html.parser')
+
+            # Possible for some players to not have 
+            try:
+                img = bs.find('div',attrs={'class':'media-item'}).find('img')
+                break
+            except AttributeError:
+                continue
+
+        src = img['src'] if img is not None else url_none
 
         update_query = {
             '$set' : {
-                'headshot_url' : img['src']
+                'headshot_url' : src
             }
         }
 

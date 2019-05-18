@@ -15,18 +15,24 @@
     </div>
 </div>
 
-<div class="sm-block-75">
+<div class="sm-block-50">
     <div class="list-group">
     {% for player in searchResList %}
-        <a href=" {{ url_for( 'profile_player', playerID = player.get('playerID') ) }} " class="list-group-item list-group-item-action" style="border: 2px solid rgb(80,0,0) !important;">
-            {% set age = 2019 - player.get('birthYear')|int %}
+        <a href=" {{ url_for( 'profile_player', playerID = player.profile.get('playerID') ) }} " class="list-group-item list-group-item-action" style="border: 2px solid rgb(80,0,0) !important;">
+            {% set age = 2019 - player.profile.get('birthYear')|int %}
             {% if age > 100 %}
                 {% set age = "Deceased" %}    
             {% endif %}
-            <h5 class="mb-1"> {{ player.get('nameFirst') }} {{ player.get('nameLast') }} - {{ age }}</h5>
-            <div class="d-flex justify-content-between">
-                <p class="mb-1"> Country: {{ player.get('birthCountry') }} </p>
-                <p class="mb-1"> Active dates: {{ player.get('debut') }} through {{ player.get('finalGame') }} </p>
+            
+            <div class="row justify-content-between">
+                <div class="col-sm">
+                    <img src="{{ player.get_picture() }}" width=92 height=137 style="display:block; margin:auto;">
+                </div>
+                <div class="col-sm">
+                    <h5 class="mb-1"> {{ player.profile.get('nameFirst') }} {{ player.profile.get('nameLast') }}</h5>
+                    <p class="mb-1"> Age: {{ age }} </p>
+                    <p class="mb-1"> Active dates: {{ player.profile.get('debut') }} through {{ player.profile.get('finalGame') }} </p>
+                </div>
             </div>
             </br>
         </a>

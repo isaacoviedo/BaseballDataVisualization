@@ -1,4 +1,5 @@
 from db import connect
+from player import Player
 from pprint import pprint
 
 def get_active_teams():
@@ -70,7 +71,9 @@ def get_search_results(player_name):
         '_id' : 0
     }
 
-    results = list(cursor.find(query, projection))
-    print('Search results length: {}'.format(len(results)))
+    # results = list(cursor.find(query, projection))
+
+    # Testing out how long it takes to return a list of players
+    results = [ Player( p['playerID'] ) for p in cursor.find(query,projection) ]
 
     return results
